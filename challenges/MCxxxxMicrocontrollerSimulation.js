@@ -157,7 +157,6 @@ run();
 
 function run() {
   let ptr = 0;
-  // let x1 = "";
   let cond = null;
 
   let [inputs, linesOfCode] = readInput();
@@ -336,7 +335,6 @@ function parseCommands(cmd) {
   if (arr[0].trim().endsWith(":")) {
     obj.label = arr[0].slice(0, -1);
     obj.ins = "label";
-
     return obj;
   }
   obj.ins = arr.shift();

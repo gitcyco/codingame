@@ -270,6 +270,8 @@ function run() {
 }
 
 // Helper functions:
+
+// Handles getting a value from an integer or from a register/input
 function get(arg, reg) {
   if (isNaN(arg)) {
     if (arg === "x0") return +reg.x0.pop();
@@ -277,12 +279,14 @@ function get(arg, reg) {
   } else return arg;
 }
 
+// Makes sure values we are putting into a register are bounded properly
 function putR(val) {
   if (val > 999) return 999;
   if (val < -999) return -999;
   return val;
 }
 
+// Do the initial input read and split everything up
 function readInput() {
   const k = parseInt(readline());
   const inputs = readline().split(" ").map(Number);
@@ -303,6 +307,7 @@ function readInput() {
   return [inputs, linesOfCode];
 }
 
+// Create a command object that deals with various parameters of execution
 function parseCommands(cmd) {
   const obj = {
     label: false,
@@ -340,6 +345,7 @@ function parseCommands(cmd) {
   return obj;
 }
 
+// Splits out the labels to a "label: index" key pair for instruction lookup
 function parseLabels(cmd) {
   let labels = {};
   cmd.forEach((e, i) => {

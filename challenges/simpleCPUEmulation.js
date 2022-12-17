@@ -70,6 +70,11 @@
  * the standard input according to the problem statement.
  **/
 
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
 const program = readline();
 console.error(program, typeof program);
 const code = parseInput(program);
@@ -80,6 +85,19 @@ console.error(code);
 
 console.log("1 2 3");
 
+function execute(code) {
+  let ptr = 0;
+  let reg = {
+    0: 0,
+    1: 0,
+    2: 0,
+  };
+
+  while (ptr < code.length) {
+    ptr++;
+  }
+}
+
 function parseInput(prg) {
   let arr = prg.match(/.{1,4}/g);
   console.error(arr);
@@ -87,9 +105,6 @@ function parseInput(prg) {
   return arr;
 }
 
-// disassemble takes the raw opcodes and makes the assembly code statements
-// that it represents. This gives a cleaner view of the instructions
-// and their arguments, versus raw opcodes.
 function disassemble(ins) {
   let dis = {
     ins: "",
@@ -107,55 +122,56 @@ function disassemble(ins) {
     case "1":
       dis.ins = "LDK";
       dis.k = opcode[1];
-      dis.arg1 = opcode[2] + opcode[3];
+      dis.arg1 = "0x" + opcode[2] + opcode[3];
       break;
     case "2":
       dis.ins = "ADD";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "3":
       dis.ins = "SUB";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "4":
       dis.ins = "OR";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "5":
       dis.ins = "AND";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "6":
       dis.ins = "XOR";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "7":
       dis.ins = "SEK";
       dis.k = opcode[1];
-      dis.arg1 = opcode[2] + opcode[3];
+      dis.arg1 = "0x" + opcode[2] + opcode[3];
       break;
     case "8":
       dis.ins = "SNEK";
       dis.k = opcode[1];
-      dis.arg1 = opcode[2] + opcode[3];
+      dis.arg1 = "0x" + opcode[2] + opcode[3];
       break;
     case "9":
       dis.ins = "SE";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     case "A":
       dis.ins = "SNE";
-      dis.arg1 = opcode[2];
-      dis.arg2 = opcode[3];
+      dis.arg1 = "0x" + opcode[2];
+      dis.arg2 = "0x" + opcode[3];
       break;
     default:
       break;
   }
+
   return dis;
 }

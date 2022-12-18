@@ -80,6 +80,8 @@ function run() {
   execute(code);
 }
 
+// This is the machine emulator, that takes the disassembled
+// instructions and executes them.
 function execute(code) {
   let ptr = 0;
   let reg = {
@@ -94,6 +96,8 @@ function execute(code) {
     let y = code[ptr].arg2;
     let k = code[ptr].k;
     let tmp = 0;
+
+    console.error("ins:", curIns, code[ptr], reg, x, y, k);
 
     switch (curIns) {
       case "EXIT":
@@ -142,6 +146,7 @@ function execute(code) {
   console.log(`${reg[0]} ${reg[1]} ${reg[2]}`);
 }
 
+// Take the raw input and run through the disassembler
 function parseInput(prg) {
   let arr = prg.match(/.{1,4}/g);
   console.error(arr);
@@ -149,6 +154,9 @@ function parseInput(prg) {
   return arr;
 }
 
+// disassemble the instructions into opcodes and arguments.
+// This allows for easier debugging rather than dealing with
+// raw machine code.
 function disassemble(ins) {
   let dis = {
     ins: "",

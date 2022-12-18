@@ -95,8 +95,6 @@ function execute(code) {
     let k = code[ptr].k;
     let tmp = 0;
 
-    console.error("ins:", curIns, code[ptr], reg, x, y, k);
-
     switch (curIns) {
       case "EXIT":
         ptr = code.length;
@@ -138,7 +136,6 @@ function execute(code) {
         if (+reg[x] !== +reg[y]) ptr++;
         break;
     }
-
     ptr++;
   }
   console.error(reg);
@@ -219,6 +216,5 @@ function disassemble(ins) {
     default:
       break;
   }
-
   return dis;
 }

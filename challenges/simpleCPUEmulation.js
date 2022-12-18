@@ -69,21 +69,16 @@
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
  **/
-
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
-
-const program = readline();
-console.error(program, typeof program);
-const code = parseInput(program);
-console.error(code);
-
 // Write an answer using console.log()
 // To debug: console.error('Debug messages...');
 
-console.log("1 2 3");
+run();
+
+function run() {
+  const program = readline();
+  const code = parseInput(program);
+  execute(code);
+}
 
 function execute(code) {
   let ptr = 0;
@@ -94,8 +89,60 @@ function execute(code) {
   };
 
   while (ptr < code.length) {
+    let curIns = code[ptr].ins;
+    let x = code[ptr].arg1;
+    let y = code[ptr].arg2;
+    let k = code[ptr].k;
+    let tmp = 0;
+
+    console.error("ins:", curIns, code[ptr], reg, x, y, k);
+
+    switch (curIns) {
+      case "EXIT":
+        ptr = code.length;
+        break;
+      case "LDK":
+        reg[k] = +x;
+        break;
+      case "ADD":
+        tmp = +reg[x] + +reg[y];
+        if (tmp > 255) reg["2"] = 1;
+        else reg["2"] = 0;
+        reg[x] = tmp & 0xff;
+        break;
+      case "SUB":
+        reg[x] = +reg[x] - +reg[y];
+        if (+reg[x] < +reg[y]) reg["2"] = 1;
+        else reg["2"] = 0;
+        reg[x] = reg[x] & 0xff;
+        break;
+      case "OR":
+        reg[x] = +reg[x] | +reg[y];
+        break;
+      case "AND":
+        reg[x] = +reg[x] & +reg[y];
+        break;
+      case "XOR":
+        reg[x] = +reg[x] ^ +reg[y];
+        break;
+      case "SEK":
+        if (+reg[k] === +x) ptr++;
+        break;
+      case "SNEK":
+        if (+reg[k] !== +x) ptr++;
+        break;
+      case "SE":
+        if (+reg[x] === +reg[y]) ptr++;
+        break;
+      case "SNE":
+        if (+reg[x] !== +reg[y]) ptr++;
+        break;
+    }
+
     ptr++;
   }
+  console.error(reg);
+  console.log(`${reg[0]} ${reg[1]} ${reg[2]}`);
 }
 
 function parseInput(prg) {
@@ -126,28 +173,28 @@ function disassemble(ins) {
       break;
     case "2":
       dis.ins = "ADD";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "3":
       dis.ins = "SUB";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "4":
       dis.ins = "OR";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "5":
       dis.ins = "AND";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "6":
       dis.ins = "XOR";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "7":
       dis.ins = "SEK";
@@ -161,13 +208,13 @@ function disassemble(ins) {
       break;
     case "9":
       dis.ins = "SE";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     case "A":
       dis.ins = "SNE";
-      dis.arg1 = "0x" + opcode[2];
-      dis.arg2 = "0x" + opcode[3];
+      dis.arg1 = opcode[2];
+      dis.arg2 = opcode[3];
       break;
     default:
       break;
